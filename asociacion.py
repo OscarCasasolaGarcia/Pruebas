@@ -5,6 +5,7 @@ import numpy as np                  # Para crear vectores y matrices n dimension
 import matplotlib.pyplot as plt     # Para la generación de gráficas a partir de los datos
 from apyori import apriori         # Para la implementación de reglas de asociación
 
+st.set_option('deprecation.showPyplotGlobalUse', False) # Para evitar que se muestre el warning de matplotlib
 
 st.title("Módulo: Reglas de asociación")
 datosAsociacion = st.file_uploader("Selecciona un archivo para trabajar las reglas de asociación", type=["csv"])
