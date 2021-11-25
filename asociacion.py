@@ -1,12 +1,8 @@
-# Para que no se muestren los errores en pantalla: 
-import warnings
-warnings.filterwarnings('ignore')
-
 from numpy.lib.shape_base import split
 import streamlit as st
 import pandas as pd                 # Para la manipulación y análisis de los datos
-import numpy as np                  # Para crear vectores y matrices n dimensionales
 import matplotlib.pyplot as plt     # Para la generación de gráficas a partir de los datos
+import numpy as np                  # Para crear vectores y matrices n dimensionales
 from apyori import apriori         # Para la implementación de reglas de asociación
 
 st.set_option('deprecation.showPyplotGlobalUse', False) # Para evitar que se muestre el warning de matplotlib
