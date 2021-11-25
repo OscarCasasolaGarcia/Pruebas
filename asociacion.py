@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt     # Para la generación de gráficas a partir 
 from apyori import apriori         # Para la implementación de reglas de asociación
 
 st.set_option('deprecation.showPyplotGlobalUse', False) # Para evitar que se muestre el warning de matplotlib
+# Para que no se muestren los errores en pantalla: 
+import warnings
+warnings.filterwarnings('ignore')
 
 st.title("Módulo: Reglas de asociación")
 datosAsociacion = st.file_uploader("Selecciona un archivo para trabajar las reglas de asociación", type=["csv"])
