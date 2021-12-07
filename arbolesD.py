@@ -411,7 +411,9 @@ if datosArboles is not None:
                     if st.checkbox('Visualizar árbol en formato de texto: '):
                         Reporte = export_text(ClasificacionAD, feature_names = list(datosArbolesDecision[datos]))
                         st.text(Reporte)
+                    
 
+                    #############################################
                     Elementos = export_graphviz(ClasificacionAD, feature_names = list(datosArbolesDecision[datos]), class_names=Y_Clasificacion)
                     Arbol = graphviz.Source(Elementos)
                     
