@@ -5,3 +5,4 @@ matplotlib==3.4.3
 graphviz==0.10.1
 seaborn==0.11.2
 sklearn==0.0
+dot==2.48.0
