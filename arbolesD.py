@@ -391,62 +391,63 @@ if datosArboles is not None:
                                 'Importancia': ClasificacionAD.feature_importances_}).sort_values('Importancia', ascending=False)
                         st.table(Importancia)
 
-
-                        import graphviz
-                        from sklearn.tree import export_graphviz
-                        # Se crea un objeto para visualizar el árbol
-                        # Se incluyen los nombres de las variables para imprimirlos en el árbol
-                        st.subheader('Árbol de decisión (Clasificación)')
-
-                        from sklearn.tree import plot_tree
-                        if st.checkbox('Visualizar árbol de decisión (puede tardar un poco)'):
-                            with st.spinner('Generando árbol de decisión...'):
-                                plt.figure(figsize=(16,16))  
-                                plot_tree(ClasificacionAD, feature_names = list(datosArbolesDecision[datos]),class_names=Y_Clasificacion)
-                                st.pyplot()
-
-                        from sklearn.tree import export_text
-                        if st.checkbox('Visualizar árbol en formato de texto: '):
-                            Reporte = export_text(ClasificacionAD, feature_names = list(datosArbolesDecision[datos]))
-                            st.text(Reporte)
-
-                        Elementos = export_graphviz(ClasificacionAD, feature_names = list(datosArbolesDecision[datos]), class_names=Y_Clasificacion)
-                        Arbol = graphviz.Source(Elementos)
-                        st.download_button(
-                            label="Haz click para descargar el árbol de decisión generado (extensión SVG)",
-                            data=Arbol.pipe(format='svg'),
-                            file_name="ArbolDecisionC.svg",
-                            mime="image/svg"
-                            )
-                        
-                        st.markdown("### **El árbol generado se puede leer en el siguiente orden:** ")
-                        st.markdown("""
-                        1. La decisión que se toma para dividir el nodo.
-                        2. El tipo de criterio que se usó para dividir cada nodo.
-                        3. Cuantos valores tiene ese nodo.
-                        4. Valores promedio.
-                        5. Por último, el valor clasificado en ese nodo. """)
-
-
-                        st.subheader('Clasificación de datos basado en el modelo establecido')
-                        with st.expander("Da click aquí para clasificar los datos que gustes"):
-                            st.subheader('Clasificación de casos')
-                            sujetoN = st.text_input("Ingrese el nombre o ID del sujeto que desea clasificar: ")
-
-                            dato = []
-                            for p in range(len(datos)):
-                                dato.append(st.number_input(datos[p][:], step=0.1))
-                            
-                            if st.checkbox("Dar clasificación: "):
-                                if ClasificacionAD.predict([dato])[0] == binario2:
-                                    st.error("Con un algoritmo que tiene una exactitud del: "+str(round(ClasificacionAD.score(X_validation, Y_validation)*100,2))+"%, la clasificación para el paciente: "+str(sujetoN)+" fue de 0 (CERO), es decir, el diagnóstico fue "+str(binario2).upper())
-                                elif ClasificacionAD.predict([dato])[0] == binario1:
-                                    st.success("Con un algoritmo que tiene una exactitud del: "+str(round(ClasificacionAD.score(X_validation, Y_validation)*100,2))+ "%, la clasificación para el paciente: "+str(sujetoN)+" fue de 1 (UNO), es decir, el diagnóstico fue "+str(binario1).upper())
-                                else:
-                                    st.warning("El resultado no pudo ser determinado, intenta hacer una buena selección de variables")
                     except:
                         st.warning("No se pudo realizar la clasificación porque no se ha hecho una correcta selección de variables")
+                    
+                    import graphviz
+                    from sklearn.tree import export_graphviz
+                    # Se crea un objeto para visualizar el árbol
+                    # Se incluyen los nombres de las variables para imprimirlos en el árbol
+                    st.subheader('Árbol de decisión (Clasificación)')
 
+                    from sklearn.tree import plot_tree
+                    if st.checkbox('Visualizar árbol de decisión (puede tardar un poco)'):
+                        with st.spinner('Generando árbol de decisión...'):
+                            plt.figure(figsize=(16,16))  
+                            plot_tree(ClasificacionAD, feature_names = list(datosArbolesDecision[datos]),class_names=Y_Clasificacion)
+                            st.pyplot()
+
+                    from sklearn.tree import export_text
+                    if st.checkbox('Visualizar árbol en formato de texto: '):
+                        Reporte = export_text(ClasificacionAD, feature_names = list(datosArbolesDecision[datos]))
+                        st.text(Reporte)
+
+                    Elementos = export_graphviz(ClasificacionAD, feature_names = list(datosArbolesDecision[datos]), class_names=Y_Clasificacion)
+                    Arbol = graphviz.Source(Elementos)
+                    
+                    st.download_button(
+                        label="Haz click para descargar el árbol de decisión generado (extensión SVG)",
+                        data=Arbol.pipe(format='svg'),
+                        file_name="ArbolDecisionC.svg",
+                        mime="image/svg"
+                        )
+                    
+                    st.markdown("### **El árbol generado se puede leer en el siguiente orden:** ")
+                    st.markdown("""
+                    1. La decisión que se toma para dividir el nodo.
+                    2. El tipo de criterio que se usó para dividir cada nodo.
+                    3. Cuantos valores tiene ese nodo.
+                    4. Valores promedio.
+                    5. Por último, el valor clasificado en ese nodo. """)
+
+
+                    st.subheader('Clasificación de datos basado en el modelo establecido')
+                    with st.expander("Da click aquí para clasificar los datos que gustes"):
+                        st.subheader('Clasificación de casos')
+                        sujetoN = st.text_input("Ingrese el nombre o ID del sujeto que desea clasificar: ")
+
+                        dato = []
+                        for p in range(len(datos)):
+                            dato.append(st.number_input(datos[p][:], step=0.1))
+                        
+                        if st.checkbox("Dar clasificación: "):
+                            if ClasificacionAD.predict([dato])[0] == binario2:
+                                st.error("Con un algoritmo que tiene una exactitud del: "+str(round(ClasificacionAD.score(X_validation, Y_validation)*100,2))+"%, la clasificación para el paciente: "+str(sujetoN)+" fue de 0 (CERO), es decir, el diagnóstico fue "+str(binario2).upper())
+                            elif ClasificacionAD.predict([dato])[0] == binario1:
+                                st.success("Con un algoritmo que tiene una exactitud del: "+str(round(ClasificacionAD.score(X_validation, Y_validation)*100,2))+ "%, la clasificación para el paciente: "+str(sujetoN)+" fue de 1 (UNO), es decir, el diagnóstico fue "+str(binario1).upper())
+                            else:
+                                st.warning("El resultado no pudo ser determinado, intenta hacer una buena selección de variables")
+                    
                 elif X.size == 0:
                     st.warning("No se ha seleccionado ninguna variable")
 
