@@ -6,4 +6,4 @@ graphviz==0.19
 seaborn==0.11.2
 sklearn==0.0
 scikit-learn==1.0.1
-/home/appuser/venv/bin/Graphviz==2.48.0
+Graphviz/bin
