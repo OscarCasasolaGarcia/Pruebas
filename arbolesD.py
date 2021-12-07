@@ -416,10 +416,11 @@ if datosArboles is not None:
                     #############################################
                     Elementos = export_graphviz(ClasificacionAD, feature_names = list(datosArbolesDecision[datos]), class_names=Y_Clasificacion)
                     Arbol = graphviz.Source(Elementos)
+                    Arbolsvg = Arbol.pipe(format='svg')
                     
                     st.download_button(
                         label="Haz click para descargar el árbol de decisión generado (extensión SVG)",
-                        data=Arbol.pipe(format='svg'),
+                        data=Arbolsvg,
                         file_name="ArbolDecisionC.svg",
                         mime="image/svg"
                         )
