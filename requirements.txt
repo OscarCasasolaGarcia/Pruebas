@@ -2,7 +2,7 @@ streamlit==1.2.0
 pandas==1.3.4
 numpy==1.21.2
 matplotlib==3.4.3
-graphviz==2.48.0
+graphviz
 seaborn==0.11.2
 sklearn==0.0
 scikit-learn==1.0.1
