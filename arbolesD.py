@@ -407,22 +407,18 @@ if datosArboles is not None:
                             plot_tree(ClasificacionAD, feature_names = list(datosArbolesDecision[datos]),class_names=Y_Clasificacion)
                             st.pyplot()
 
+                    
                     from sklearn.tree import export_text
                     if st.checkbox('Visualizar árbol en formato de texto: '):
                         Reporte = export_text(ClasificacionAD, feature_names = list(datosArbolesDecision[datos]))
                         st.text(Reporte)
                     
-
                     #############################################
                     Elementos = export_graphviz(ClasificacionAD, feature_names = list(datosArbolesDecision[datos]), class_names=Y_Clasificacion)
-                    Arbol = graphviz.Source(Elementos)
-
-                    st.download_button(
-                        label="Haz click para descargar el árbol de decisión generado (extensión SVG)",
-                        data=Arbol.pipe(format='svg'),
-                        file_name="ArbolDecisionC.svg",
-                        mime="image/svg"
-                        )
+                    Arbol = graphviz.Source(Elementos, format='svg')
+                    if st.checkbox('Ver árbol en extensión SVG: '):
+                        Arbol.render('Arbol')
+                        st.image('Arbol.svg')
                     
                     st.markdown("### **El árbol generado se puede leer en el siguiente orden:** ")
                     st.markdown("""
